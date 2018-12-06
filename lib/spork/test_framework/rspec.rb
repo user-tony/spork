@@ -1,3 +1,4 @@
+require 'rspec/core/version'
 class Spork::TestFramework::RSpec < Spork::TestFramework
   DEFAULT_PORT = 8989
   HELPER_FILE = File.join(Dir.pwd, "spec/spec_helper.rb")
@@ -7,6 +8,7 @@ class Spork::TestFramework::RSpec < Spork::TestFramework
       ::Spec::Runner::CommandLine.run(
         ::Spec::Runner::OptionParser.parse(argv, stderr, stdout)
       )
+    # 增加判断是否repec3的分支
     elsif rspec3?
       options = ::RSpec::Core::ConfigurationOptions.new(argv)
       ::RSpec::Core::Runner.new(options).run(stderr, stdout)
@@ -15,6 +17,7 @@ class Spork::TestFramework::RSpec < Spork::TestFramework
     end
   end
 
+  # 增加rspec3的判断方法
   def rspec3?
     return false if !defined?(::RSpec::Core::Version::STRING)
     ::RSpec::Core::Version::STRING =~ /^3\./
